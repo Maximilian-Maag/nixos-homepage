@@ -34,5 +34,16 @@ export default defineConfig({
       theme: syntaxTheme,
     },
   },
+  vite: {
+    server: {
+      watch: {
+        followSymlinks: false,
+        ignored: [
+          "**/.direnv/**/*",
+          '**/.pre-commit-config.yaml',
+        ],
+      },
+    },
+  },
   compressHTML: true,
 });
