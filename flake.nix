@@ -14,14 +14,45 @@
     nix-pills.flake = false;
   };
 
-  outputs = inputs@{ flake-parts, ... }:
+  outputs =
+    inputs@{ flake-parts, git-hooks-nix, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
+        inputs.git-hooks-nix.flakeModule
       ];
-      systems = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin" ];
-      perSystem = { config, self', inputs', pkgs, system, ... }: {
-        packages.default = pkgs.hello;
-      };
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "aarch64-darwin"
+        "x86_64-darwin"
+      ];
+      perSystem =
+        {
+          config,
+          self',
+          inputs',
+          pkgs,
+          system,
+          ...
+        }:
+        {
+          pre-commit.settings.hooks = {
+            nixfmt-rfc-style = {
+              enable = true;
+              files = "\\.nix$";
+            };
+            prettier-check = {
+              enable = true;
+              name = "check-formatting";
+              entry = "${pkgs.nodejs_22}/bin/npm run format:check";
+              stages = [ "pre-push" ];
+              pass_filenames = false;
+            };
+          };
+          devShells.default = pkgs.mkShell {
+
+          };
+        };
       flake = {
       };
     };

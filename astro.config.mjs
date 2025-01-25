@@ -6,7 +6,7 @@ import tailwind from "@astrojs/tailwind";
 import icon from "astro-icon";
 
 // theme derivated from https://raw.githubusercontent.com/shikijs/textmate-grammars-themes/main/packages/tm-themes/themes/vesper.json
-import syntaxTheme from "./src/lib/shiki/theme.json";
+// import syntaxTheme from "./src/lib/shiki/theme.json";
 
 import favicons from "astro-favicons";
 
@@ -31,7 +31,7 @@ export default defineConfig({
   },
   markdown: {
     shikiConfig: {
-      theme: syntaxTheme,
+      //theme: syntaxTheme,
     },
   },
   vite: {
@@ -43,7 +43,7 @@ export default defineConfig({
           '**/.pre-commit-config.yaml',
         ],
       },
-    },
+    }
   },
   compressHTML: true,
 });
