@@ -50,7 +50,7 @@
             };
           };
           devShells.default = pkgs.mkShell {
-
+            # inputsFrom = [ config.pre-commit.devShell ];
           };
         };
       flake = {
